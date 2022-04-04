@@ -1,21 +1,23 @@
 import 'package:chat_flutter/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 import 'login_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static String id = 'welcome_screen';
+
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen>
     with SingleTickerProviderStateMixin {
+  // this vars are for animations
   late AnimationController controller;
   late Animation animation;
 
+//this is free chat animation
   @override
   void initState() {
     super.initState();
@@ -27,6 +29,13 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     controller.addListener(() {
       setState(() {});
     });
+  }
+
+  //this cause animation stop loading when you left this form
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
