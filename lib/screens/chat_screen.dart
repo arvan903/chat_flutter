@@ -81,6 +81,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       _firestore.collection('messages').add({
                         'text': messageText,
                         'sender': loggedInUser.email,
+                        'time': FieldValue.serverTimestamp()
                       });
                     },
                     child: Text(
@@ -104,7 +105,10 @@ class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collection('messages').snapshots(),
+      stream: _firestore
+          .collection('messages')
+          .orderBy('time', descending: false)
+          .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Center(
@@ -119,11 +123,14 @@ class MessagesStream extends StatelessWidget {
           var data = message.data() as Map; // add Typecast
           final messageText = data['text'];
           final messageSender = data['sender'];
+          final messageTime = data['time'] as Timestamp;
           final currectUser = loggedInUser.email;
           final messageBubble = MessageBubble(
               sender: messageSender,
               text: messageText,
-              isMe: currectUser == messageSender);
+              isMe: currectUser == messageSender,
+              time: messageTime);
+
           messageBubbles.add(messageBubble); // you have to add item to list
         }
         return Expanded(
@@ -137,10 +144,15 @@ class MessagesStream extends StatelessWidget {
 }
 
 class MessageBubble extends StatelessWidget {
-  MessageBubble({required this.sender, required this.text, required this.isMe});
+  MessageBubble(
+      {required this.sender,
+      required this.text,
+      required this.isMe,
+      required this.time});
   final String sender;
   final String text;
   final bool isMe;
+  final Timestamp time;
 
   @override
   Widget build(BuildContext context) {
