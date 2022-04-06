@@ -2,7 +2,7 @@ import 'package:chat_flutter/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // this package is for loading screen
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = 'login_screen';
@@ -16,15 +16,15 @@ class _LoginScreenState extends State<LoginScreen> {
   late String password;
   final _auth = FirebaseAuth.instance;
   //this var is for loading screen
-  bool showSpinner = false;
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       // puting modal for loading
-      body: ModalProgressHUD(
-        inAsyncCall: showSpinner,
+      body: LoadingOverlay(
+        isLoading: _loading,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
@@ -111,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () async {
                       //by clicking loading screen comes up
                       setState(() {
-                        showSpinner = true;
+                        _loading = true;
                       });
                       try {
                         final user = await _auth.signInWithEmailAndPassword(
@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                         // after sign out no loading screen more showing
                         setState(() {
-                          showSpinner = false;
+                          _loading = false;
                         });
                       } catch (e) {
                         print(e);
