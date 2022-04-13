@@ -5,6 +5,8 @@ import 'package:loading_overlay/loading_overlay.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String id = 'registration_screen';
+
+  const RegistrationScreen({Key? key}) : super(key: key);
   @override
   _RegistrationScreenState createState() => _RegistrationScreenState();
 }
@@ -21,7 +23,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       body: LoadingOverlay(
         isLoading: _loading,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -35,17 +37,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 48.0,
               ),
               TextField(
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 onChanged: (value) {
                   email = value;
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintStyle: TextStyle(color: Colors.grey),
                   hintText: 'Enter your email',
                   contentPadding:
@@ -65,17 +67,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8.0,
               ),
               TextField(
                 obscureText: true,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 onChanged: (value) {
                   password = value;
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintStyle: TextStyle(color: Colors.grey),
                   hintText: 'Enter your password',
                   contentPadding:
@@ -95,14 +97,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 18.0,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.0),
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: Material(
                   color: Colors.blueAccent,
-                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  borderRadius: const BorderRadius.all(Radius.circular(30.0)),
                   elevation: 5.0,
                   child: MaterialButton(
                     onPressed: () async {
@@ -125,7 +127,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     },
                     minWidth: 200.0,
                     height: 42.0,
-                    child: Text(
+                    child: const Text(
                       'Register',
                       style: TextStyle(color: Colors.white),
                     ),
